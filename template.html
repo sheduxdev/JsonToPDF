@@ -1,105 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürünler</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap');
 
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-        <title>Ürünler</title>
+        .pageHeader {
+            margin-bottom: 20px;
+            overflow: hidden;
+            text-align: center; /* Resmi ortala */
+        }
 
-        <style>
+        .productBox {
+            max-width: 700px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(45, 45, 45, 0.8);
+            border: 1px solid #0000;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
 
-            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap');
+        .productImageBox {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
 
-            body {
-                display: flex;
-                flex-direction: column; /* Ana kutuları dikey olarak sırala */
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-                margin: 0;
-            }
-    
-            .productBox {
-                max-width: 700px;
-                width: 700px;
-                height: 200px;
-                display: flex;
-                align-items: center;
-                padding: 20px;
-                background-color:rgba(45, 45, 45, 0.8);
-                border: 1px solid #0000;
-                border-radius: 8px;
-                margin-bottom: 80px; /* Ana kutular arasında boşluk bırakmak için margin-bottom kullanılır */
-            }
-    
-            .productImageBox {
-                width: 100px;
-                height: 100px;
-            }
+        .productImage {
+            width: 100%;
+            height: 100%;
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 4px;
+            object-fit: cover; /* Resmi boyutlarına sığdır */
+        }
 
-            .productImage {
-                width: 100px;
-                height: 100px;
-                max-width: 100px;
-                max-height: 100px;
-                border-radius: 4px;
-            }
-    
-            .information {
-                margin-top: 10px;
-                text-align: center;
-            }
-    
-            .productName {
-                color: #FFFFFF;
-                font-family: 'Poppins', sans-serif;
-                font-weight: 700;
-                text-transform: uppercase;
-                margin-left: 10px;
-            }
+        .information {
+            text-align: left;
+        }
 
-            .productInformation {
-                text-decoration: none;
-                list-style: none;
-                font-family: 'Poppins', sans-serif;
-                font-weight: 700;
-                font-size: 14px;
-                margin-left: -28px;
-                color: #FFFFFF;
-                text-align: left;
-            }
+        .productName {
+            color: #FFFFFF;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
 
-        </style>
+        .productInformation {
+            font-weight: 700;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
 
-    </head>
-
-  <body>
-
-    <br><br>
+<body>
     {{#each items}}
     <div class="productBox">
-      <div class="productImageBox">
-        {{#if this.img}}
-          <img class="productImage" src="{{this.img}}">
-        {{else}}
-          <img class="productImage" src="https://imgur.com/UQWpx7I.png">
-        {{/if}}
-      </div>
-      <div class="information">
-        <div class="productName">{{this.urun_adi}}</div>
-        <ul>
-          <li class="productInformation">Üretici Firma: <span style="font-weight: 100;">{{this.marka}}</span></li>
-          <li class="productInformation">Ürün Kategorisi: <span style="font-weight: 100;">{{this.cat_name}}</span></li>
-          <li class="productInformation">Ürün Kodu: <span style="font-weight: 100;">{{this.stok_kodu}}</span></li>
-        </ul>
-      </div>
+        <div class="productImageBox">
+            {{#if this.img}}
+            <img class="productImage" src="{{this.img}}">
+            {{else}}
+            <img class="productImage" src="https://imgur.com/UQWpx7I.png">
+            {{/if}}
+        </div>
+        <div class="information">
+            <div class="productName">{{this.urun_adi}} - Sıra: {{@index}}</div>
+            <ul>
+                <li class="productInformation">Üretici Firma: <span>{{this.marka}}</span></li>
+                <li class="productInformation">Ürün Kategorisi: <span>{{this.kategori.[0].cat_name}}</span></li>
+                <li class="productInformation">Ürün Kodu: <span>{{this.stok_kodu}}</span></li>
+            </ul>
+        </div>
     </div>
-  {{/each}}
-  
-
-  </body>
+    {{/each}}
+</body>
 
 </html>
