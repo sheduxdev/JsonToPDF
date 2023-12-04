@@ -24,11 +24,10 @@ const getData = async () => {
       return {
         items: [
           {
-            "urun_adi": "Lütfen veri sunucusunu kontrol edin.",
-            "marka": "Lütfen veri sunucusunu kontrol edin.",
-            "cat_name": "Lütfen veri sunucusunu kontrol edin.",
-            "stok_kodu": "504",
-            "img": "https://imgur.com/UQWpx7I.png"
+            "urun_adi": "Ürünün adı alınamadı.",
+            "marka": "Ürünü üreten marka alınamadı.",
+            "cat_name": "Ürünün kategorisi alınamadı.",
+            "stok_kodu": "Ürünün stok kodu alınamadı.",
           }
         ],
       };
