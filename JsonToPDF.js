@@ -8,14 +8,14 @@ const GeneratePDF = async (data, fileName) => {
   try {
     const startTime = new Date().getTime();
 
-    console.log("[DEBUG] Template dosyası yükleniyor.");
+    console.log("[LOG] Template dosyası yükleniyor.");
     const templateHtml = fs.readFileSync(
       path.join(process.cwd(), "template.html"),
       "utf8"
     );
-    console.log("[DEBUG] Template dosyası yüklendi.");
+    console.log("[LOG] Template dosyası yüklendi.");
 
-    console.log("[DEBUG] Handlebars modülü yükleniyor.");
+    console.log("[LOG] Handlebars modülü yükleniyor.");
     handlebars.registerHelper(
       "math",
       function (lvalue, operator, rvalue, options) {
@@ -31,9 +31,9 @@ const GeneratePDF = async (data, fileName) => {
         }[operator];
       }
     );
-    console.log("[DEBUG] Handlebars modülü yüklendi.");
+    console.log("[LOG] Handlebars modülü yüklendi.");
 
-    console.log("[DEBUG] PDF Dosyası ayarları yapılıyor.");
+    console.log("[LOG] PDF Dosyası ayarları yapılıyor.");
     const template = handlebars.compile(templateHtml);
 
     const finalHtml = encodeURIComponent(template(data));
@@ -43,15 +43,13 @@ const GeneratePDF = async (data, fileName) => {
       headerTemplate: "<p></p>",
       footerTemplate: "<p></p>",
       displayHeaderFooter: false,
-      margin: {},
       printBackground: true,
       path: fileName,
     };
-    console.log("[DEBUG] PDF Dosyası ayarları yapıldı.");
+    console.log("[LOG] PDF Dosyası ayarları yapıldı.");
 
-    console.log("[DEBUG] Puppeteer modülü çalıştırılıyor.");
+    console.log("[LOG] Puppeteer modülü çalıştırılıyor.");
     const browser = await puppeteer.launch({
-      args: ["--no-sandbox"],
       headless: "new",
       defaultViewport: null
     });
@@ -64,12 +62,12 @@ const GeneratePDF = async (data, fileName) => {
 
     await page.pdf(options);
     await browser.close();
-    console.log("[DEBUG] Puppeteer modülü başarıyla çalıştırıldı.");
+    console.log("[LOG] Puppeteer modülü başarıyla çalıştırıldı.");
 
     const endTime = new Date().getTime();
     const elapsedTime = (endTime - startTime) / 1000;
 
-    console.log("Katalog başarıyla oluşturuldu. (" + elapsedTime + " saniye içerisinde oluştu)");
+    console.log("Katalog başarıyla oluşturuldu. (" + elapsedTime + " saniye)");
   } catch (err) {
     console.log("Bir hata meydana geldi:", err);
   }
