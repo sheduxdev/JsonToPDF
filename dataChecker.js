@@ -15,7 +15,7 @@ const getData = async () => {
     const remoteData = await fetchData();
 
     if (remoteData && !remoteData.error) {
-      console.log(`Toplam ${remoteData.length} ürün koyuldu.`);
+      console.log(`[LOG] Toplam ${remoteData.length} ürün listelendi.`);
 
       return {
         items: remoteData,
