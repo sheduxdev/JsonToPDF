@@ -15,14 +15,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
             margin: 0;
         }
 
         .pageHeader {
-            margin-bottom: 20px;
             overflow: hidden;
-            text-align: center; /* Resmi ortala */
+            text-align: center;
         }
 
         .productBox {
@@ -49,7 +47,7 @@
             max-width: 100px;
             max-height: 100px;
             border-radius: 4px;
-            object-fit: cover; /* Resmi boyutlarına sığdır */
+            object-fit: cover;
         }
 
         .information {
@@ -72,21 +70,42 @@
 </head>
 
 <body>
+    <div class="pageHeader">
+        <img src="https://oriongida.com/wp-content/uploads/2023/12/orion-katalog2-scaled.jpg" height="1080">
+    </div>
     {{#each items}}
     <div class="productBox">
         <div class="productImageBox">
             {{#if this.img}}
             <img class="productImage" src="{{this.img}}">
             {{else}}
-            <img class="productImage" src="https://imgur.com/UQWpx7I.png">
+            <img class="productImage" src="https://oriongida.com/wp-content/uploads/2023/12/WhatsApp-Image-2023-12-04-at-14.33.57.jpeg">
             {{/if}}
         </div>
         <div class="information">
-            <div class="productName">{{this.urun_adi}} - Sıra: {{@index}}</div>
-            <ul>
-                <li class="productInformation">Üretici Firma: <span>{{this.marka}}</span></li>
-                <li class="productInformation">Ürün Kategorisi: <span>{{this.kategori.[0].cat_name}}</span></li>
-                <li class="productInformation">Ürün Kodu: <span>{{this.stok_kodu}}</span></li>
+            {{#if this.urun_adi}}
+            <div class="productName">{{this.urun_adi}}</div>
+            {{else}}
+            <div class="productName"><span style="color: red;">Ürünün adı alınamadı.</span></div>
+            {{/if}}
+            <ul style="list-style: none;margin-left: -40px;">
+                {{#if this.urun_adi}}
+                <li class="productInformation">Üretici Firma: <span style="color: goldenrod;">{{this.marka}}</span></li>
+                {{else}}
+                <li class="productInformation"><span style="color: red;">Ürünü üreten marka alınamadı.</span></li>
+                {{/if}}
+
+                {{#if this.kategori.[0].cat_name}}
+                <li class="productInformation">Ürün Kategorisi: <span style="color: goldenrod;">{{this.kategori.[0].cat_name}}</span></li>
+                {{else}}
+                <li class="productInformation"><span style="color: red;">Ürünün kategorisi alınamadı.</span></li>
+                {{/if}}
+
+                {{#if this.stok_kodu}}
+                <li class="productInformation">Ürün Kodu: <span style="color: goldenrod;">{{this.stok_kodu}}</span></li>
+                {{else}}
+                <li class="productInformation"><span style="color: red;">Ürünün kodu alınamadı.</span></li>
+                {{/if}}
             </ul>
         </div>
     </div>
