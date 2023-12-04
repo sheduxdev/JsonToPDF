@@ -43,10 +43,7 @@ const GeneratePDF = async (data, fileName) => {
       headerTemplate: "<p></p>",
       footerTemplate: "<p></p>",
       displayHeaderFooter: false,
-      margin: {
-        top: "40px",
-        bottom: "100px",
-      },
+      margin: {},
       printBackground: true,
       path: fileName,
     };
@@ -55,11 +52,11 @@ const GeneratePDF = async (data, fileName) => {
     console.log("[DEBUG] Puppeteer modülü çalıştırılıyor.");
     const browser = await puppeteer.launch({
       args: ["--no-sandbox"],
-      headless: true,
+      headless: "new",
+      defaultViewport: null
     });
 
     const page = await browser.newPage();
-    await page.setViewport({ width: 761, height: 800 });
 
     await page.goto(`data:text/html;charset=UTF-8,${finalHtml}`, {
       waitUntil: "networkidle0",
@@ -81,4 +78,3 @@ const GeneratePDF = async (data, fileName) => {
 (async () => {
   await GeneratePDF(await dataSource(), "catalog.pdf");
 })();
-
