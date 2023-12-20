@@ -44,6 +44,7 @@ const GeneratePDF = async (data, fileName) => {
       footerTemplate: "<p></p>",
       displayHeaderFooter: false,
       printBackground: true,
+      margin: { top: 20, right: 20, bottom: 20, left: 20 },
       path: fileName,
     };
     console.log("[LOG] PDF Dosyası ayarları yapıldı.");
@@ -55,6 +56,7 @@ const GeneratePDF = async (data, fileName) => {
     });
 
     const page = await browser.newPage();
+    await page.setViewport({ width: 794, height: 1123 });
 
     await page.goto(`data:text/html;charset=UTF-8,${finalHtml}`, {
       waitUntil: "networkidle0",
