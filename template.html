@@ -6,108 +6,108 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ürünler</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.4/tailwind.min.css" integrity="sha512-EwudealwiJzjTSqcNVDuILbGKS8LE3FTwZ0zYGG2qhGmMoNMlPI1jmxmO84isvQW5GMu6HAiKVNKoXyv++VsoA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap');
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@600&display=swap');
 
         .pageHeader {
             overflow: hidden;
             text-align: center;
+            page-break-before: always; /* Her sayfa başlığından önce yeni sayfa oluştur */
         }
 
-        .productBox {
-            max-width: 700px;
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .ana-kutu {
+            width: 22%; /* İsteğe bağlı, A4 sayfasına sığacak şekilde genişliği ayarlayabilirsiniz */
+            max-width: 180px; /* Sayfa dışına taşmayı önlemek için maksimum genişlik ekleyin */
+            height: 300px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            margin: 10px;
+            display: inline-block;
+            page-break-inside: avoid;
+            overflow: hidden; /* Taşan içeriği gizlemek için overflow ekleyin */
+        }
+
+        .gorsel {
             width: 100%;
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            background-color: rgba(45, 45, 45, 0.8);
-            border: 1px solid #0000;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            height: auto;
+            border-radius: 5px;
         }
 
-        .productImageBox {
-            width: 100px;
-            height: 100px;
-            margin-right: 20px;
+        .metin,
+        .alt-metin {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            white-space: pre-line;
+            overflow: hidden;
         }
 
-        .productImage {
-            width: 100%;
-            height: 100%;
-            max-width: 100px;
-            max-height: 100px;
-            border-radius: 4px;
-            object-fit: cover;
+        .metin {
+            font-size: 16px;
+            max-height: 4em;
+            line-height: 1.3em;
         }
 
-        .information {
-            text-align: left;
-        }
-
-        .productName {
-            color: #FFFFFF;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .productInformation {
-            font-weight: 700;
+        .alt-metin {
+            font-family: 'Inter', sans-serif;
             font-size: 14px;
-            color: #FFFFFF;
+            color: #555;
+            max-height: 4em;
+            line-height: 1em;
+        }
+
+        .sayfa {
+            justify-content: center;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 794px; /* A4 sayfasına uygun genişlik */
+            margin: 0 auto; /* Sayfa ortalanacak */
+            page-break-after: always; /* Her sayfanın sonundan sonra yeni sayfa oluştur */
+        }
+
+        .sayfa:after {
+            content: "";
+            display: table;
+            clear: both;
         }
     </style>
 </head>
 
 <body>
     <div class="pageHeader">
-        <img src="https://oriongida.com/wp-content/uploads/2023/12/orion-katalog2-scaled.jpg" height="1080">
+        <img src="https://oriongida.com/wp-content/uploads/2023/12/orion-katalog2-scaled.jpg" width="100%" height="auto">
     </div>
+
     {{#each items}}
-    <div class="productBox">
-        <div class="productImageBox">
-            {{#if this.img}}
-            <img class="productImage" src="{{this.img}}">
+    <div class="ana-kutu">
+        <div class="gorsel">
+            {{#if this.thumbnail_url}}
+            <img src="{{this.thumbnail_url}}" alt=""/>
             {{else}}
-            <img class="productImage" src="https://oriongida.com/wp-content/uploads/2023/12/WhatsApp-Image-2023-12-04-at-14.33.57.jpeg">
+            <img src="https://oriongida.com/wp-content/uploads/2023/12/WhatsApp-Image-2023-12-04-at-14.33.57.jpeg" alt=""/>
             {{/if}}
         </div>
-        <div class="information">
-            {{#if this.urun_adi}}
-            <div class="productName">{{this.urun_adi}}</div>
-            {{else}}
-            <div class="productName"><span style="color: red;">Ürünün adı alınamadı.</span></div>
-            {{/if}}
-            <ul style="list-style: none;margin-left: -40px;">
-                {{#if this.urun_adi}}
-                <li class="productInformation">Üretici Firma: <span style="color: goldenrod;">{{this.marka}}</span></li>
-                {{else}}
-                <li class="productInformation"><span style="color: red;">Ürünü üreten marka alınamadı.</span></li>
-                {{/if}}
-
-                {{#if this.kategori.[0].cat_name}}
-                <li class="productInformation">Ürün Kategorisi: <span style="color: goldenrod;">{{this.kategori.[0].cat_name}}</span></li>
-                {{else}}
-                <li class="productInformation"><span style="color: red;">Ürünün kategorisi alınamadı.</span></li>
-                {{/if}}
-
-                {{#if this.stok_kodu}}
-                <li class="productInformation">Ürün Kodu: <span style="color: goldenrod;">{{this.stok_kodu}}</span></li>
-                {{else}}
-                <li class="productInformation"><span style="color: red;">Ürünün kodu alınamadı.</span></li>
-                {{/if}}
-            </ul>
-        </div>
+        {{#if this.urun_adi}}
+        <div class="metin">{{this.urun_adi}}</div>
+        {{else}}
+        <div class="metin"><span style="color: red;">---</span></div>
+        {{/if}}
+        {{#if this.marka}}
+        <div class="alt-metin">{{this.marka}}</div>
+        {{else}}
+        <div class="alt-metin"><span style="color: red;">---</span></div>
+        {{/if}}
     </div>
     {{/each}}
 </body>
