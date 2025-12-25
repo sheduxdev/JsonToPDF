@@ -6,14 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ürünler</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.4/tailwind.min.css" integrity="sha512-EwudealwiJzjTSqcNVDuILbGKS8LE3FTwZ0zYGG2qhGmMoNMlPI1jmxmO84isvQW5GMu6HAiKVNKoXyv++VsoA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.4/tailwind.min.css"
+        integrity="sha512-EwudealwiJzjTSqcNVDuILbGKS8LE3FTwZ0zYGG2qhGmMoNMlPI1jmxmO84isvQW5GMu6HAiKVNKoXyv++VsoA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@600&display=swap');
 
         .pageHeader {
             overflow: hidden;
             text-align: center;
-            page-break-before: always; /* Her sayfa başlığından önce yeni sayfa oluştur */
+            page-break-before: always;
+            /* Her sayfa başlığından önce yeni sayfa oluştur */
         }
 
         body {
@@ -25,8 +28,10 @@
         }
 
         .ana-kutu {
-            width: 22%; /* İsteğe bağlı, A4 sayfasına sığacak şekilde genişliği ayarlayabilirsiniz */
-            max-width: 180px; /* Sayfa dışına taşmayı önlemek için maksimum genişlik ekleyin */
+            width: 22%;
+            /* İsteğe bağlı, A4 sayfasına sığacak şekilde genişliği ayarlayabilirsiniz */
+            max-width: 180px;
+            /* Sayfa dışına taşmayı önlemek için maksimum genişlik ekleyin */
             height: 300px;
             padding: 10px;
             background-color: #ecf0f1;
@@ -35,7 +40,8 @@
             margin: 10px;
             display: inline-block;
             page-break-inside: avoid;
-            overflow: hidden; /* Taşan içeriği gizlemek için overflow ekleyin */
+            overflow: hidden;
+            /* Taşan içeriği gizlemek için overflow ekleyin */
         }
 
         .gorsel {
@@ -71,9 +77,12 @@
             text-align: center;
             display: flex;
             flex-wrap: wrap;
-            max-width: 794px; /* A4 sayfasına uygun genişlik */
-            margin: 0 auto; /* Sayfa ortalanacak */
-            page-break-after: always; /* Her sayfanın sonundan sonra yeni sayfa oluştur */
+            max-width: 794px;
+            /* A4 sayfasına uygun genişlik */
+            margin: 0 auto;
+            /* Sayfa ortalanacak */
+            page-break-after: always;
+            /* Her sayfanın sonundan sonra yeni sayfa oluştur */
         }
 
         .sayfa:after {
@@ -86,28 +95,30 @@
 
 <body>
     <div class="pageHeader">
-        <img src="https://oriongida.com/wp-content/uploads/2023/12/orion-katalog2-scaled.jpg" width="100%" height="auto">
+        <img src="https://oriongida.com/wp-content/uploads/2023/12/orion-katalog2-scaled.jpg" width="100%"
+            height="auto">
     </div>
 
     {{#each items}}
     <div class="ana-kutu">
         <div class="gorsel">
-            {{#if this.thumbnail_url}}
-            <img src="{{this.thumbnail_url}}" alt=""/>
+            {{#if this.thumbnail}}
+            <img src="{{this.thumbnail}}" alt="" />
             {{else}}
-            <img src="https://oriongida.com/wp-content/uploads/2023/12/WhatsApp-Image-2023-12-04-at-14.33.57.jpeg" alt=""/>
+            <img src="https://via.placeholder.com/150" alt="" />
             {{/if}}
         </div>
-        {{#if this.urun_adi}}
-        <div class="metin">{{this.urun_adi}}</div>
+        {{#if this.title}}
+        <div class="metin">{{this.title}}</div>
         {{else}}
         <div class="metin"><span style="color: red;">---</span></div>
         {{/if}}
-        {{#if this.marka}}
-        <div class="alt-metin">{{this.marka}}</div>
+        {{#if this.brand}}
+        <div class="alt-metin">{{this.brand}}</div>
         {{else}}
         <div class="alt-metin"><span style="color: red;">---</span></div>
         {{/if}}
+        <div class="alt-metin" style="font-weight: bold; color: #2c3e50;">{{this.price}} $</div>
     </div>
     {{/each}}
 </body>

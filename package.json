@@ -1,16 +1,26 @@
 {
-  "name": "JsonToPDF",
+  "name": "jsontopdf",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "High-performance JSON to PDF generator",
+  "main": "dist/index.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "tsc --noEmit"
   },
   "author": "Deniz USTA",
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.6.2",
-    "handlebars": "^4.7.8",
-    "puppeteer": "^1.20.0"
+    "axios": "latest",
+    "handlebars": "latest",
+    "puppeteer": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "typescript": "latest",
+    "tsx": "latest",
+    "@types/handlebars": "latest"
   }
 }
