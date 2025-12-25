@@ -27,5 +27,20 @@ export const config: AppConfig = {
             width: 794,
             height: 1123
         }
+    },
+    ui: {
+        headerImageUrl: 'https://dummyjson.com/image/400x200/282828',
+        colors: {
+            background: '#ffffff',
+            cardBackground: '#ecf0f1',
+            cardBorder: '#bdc3c7',
+            title: '#2c3e50',
+            brand: '#555555',
+            price: '#2c3e50'
+        },
+        fonts: {
+            main: "'Inter', sans-serif",
+            title: "'Poppins', sans-serif"
+        }
     }
 };

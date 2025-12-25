@@ -49,13 +49,12 @@ export class PDFService {
         let browser: Browser | null = null;
 
         try {
-            console.log('[LOG] Template dosyası yükleniyor.');
             const templatePath = path.join(process.cwd(), 'template.html');
             const templateHtml = await fs.readFile(templatePath, 'utf8');
 
             this.registerHelpers();
             const template = handlebars.compile(templateHtml);
-            const finalHtml = template(data);
+            const finalHtml = template({ ...data, ui: config.ui });
 
             const pdfOptions: PuppeteerPDFOptions = {
                 format: config.pdf.format,
@@ -64,25 +63,18 @@ export class PDFService {
                 path: config.pdf.fileName,
             };
 
-            console.log('[LOG] Puppeteer başlatılıyor.');
             browser = await this.getBrowser();
             const page = await browser.newPage();
 
             await page.setViewport(config.puppeteer.viewport);
-
-            console.log('[LOG] HTML içeriği sayfaya aktarılıyor.');
             await page.setContent(finalHtml, { waitUntil: 'networkidle0' });
-
-            console.log('[LOG] PDF oluşturuluyor.');
             await page.pdf(pdfOptions);
-
             await page.close();
 
             const endTime = performance.now();
             const elapsedTime = ((endTime - startTime) / 1000).toFixed(2);
-            console.log(`[SUCCESS] Katalog başarıyla oluşturuldu: ${config.pdf.fileName} (${elapsedTime} saniye)`);
+            console.log(`[SUCCESS] ${config.pdf.fileName} (${elapsedTime}s)`);
         } catch (err) {
-            console.error('[ERROR] PDF oluşturma hatası:', err);
             throw err;
         }
     }

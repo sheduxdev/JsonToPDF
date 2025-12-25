@@ -40,8 +40,25 @@ export interface PuppeteerConfig {
     };
 }
 
+export interface UIConfig {
+    headerImageUrl: string;
+    colors: {
+        background: string;
+        cardBackground: string;
+        cardBorder: string;
+        title: string;
+        brand: string;
+        price: string;
+    };
+    fonts: {
+        main: string;
+        title: string;
+    };
+}
+
 export interface AppConfig {
     data: DataConfig;
     pdf: PDFOptions;
     puppeteer: PuppeteerConfig;
+    ui: UIConfig;
 }

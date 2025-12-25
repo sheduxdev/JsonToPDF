@@ -12,115 +12,183 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@600&display=swap');
 
+        :root {
+            --bg-color: {
+                    {
+                    ui.colors.background
+                }
+            }
+
+            ;
+
+            --card-bg: {
+                    {
+                    ui.colors.cardBackground
+                }
+            }
+
+            ;
+
+            --card-border: {
+                    {
+                    ui.colors.cardBorder
+                }
+            }
+
+            ;
+
+            --title-color: {
+                    {
+                    ui.colors.title
+                }
+            }
+
+            ;
+
+            --brand-color: {
+                    {
+                    ui.colors.brand
+                }
+            }
+
+            ;
+
+            --price-color: {
+                    {
+                    ui.colors.price
+                }
+            }
+
+            ;
+
+            --font-main: {
+                    {
+                    ui.fonts.main
+                }
+            }
+
+            ;
+
+            --font-title: {
+                    {
+                    ui.fonts.title
+                }
+            }
+
+            ;
+        }
+
         .pageHeader {
             overflow: hidden;
             text-align: center;
             page-break-before: always;
-            /* Her sayfa başlığından önce yeni sayfa oluştur */
         }
 
         body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            justify-content: center;
-            text-align: center;
+            background-color: var(--bg-color);
+            font-family: var(--font-main);
         }
 
         .ana-kutu {
             width: 22%;
-            /* İsteğe bağlı, A4 sayfasına sığacak şekilde genişliği ayarlayabilirsiniz */
             max-width: 180px;
-            /* Sayfa dışına taşmayı önlemek için maksimum genişlik ekleyin */
-            height: 300px;
+            height: 320px;
             padding: 10px;
-            background-color: #ecf0f1;
-            border: 2px solid #bdc3c7;
+            background-color: var(--card-bg);
+            border: 2px solid var(--card-border);
             border-radius: 10px;
             margin: 10px;
             display: inline-block;
             page-break-inside: avoid;
             overflow: hidden;
-            /* Taşan içeriği gizlemek için overflow ekleyin */
         }
 
         .gorsel {
             width: 100%;
-            height: auto;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             border-radius: 5px;
+            background: white;
+            margin-bottom: 8px;
+        }
+
+        .gorsel img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         .metin,
         .alt-metin {
-            font-family: 'Poppins', sans-serif;
             text-align: center;
             white-space: pre-line;
             overflow: hidden;
         }
 
         .metin {
-            font-size: 16px;
-            max-height: 4em;
+            font-family: var(--font-title);
+            color: var(--title-color);
+            font-size: 14px;
+            font-weight: 600;
+            height: 2.6em;
             line-height: 1.3em;
+            margin-bottom: 4px;
         }
 
         .alt-metin {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            color: #555;
-            max-height: 4em;
-            line-height: 1em;
+            font-size: 12px;
+            color: var(--brand-color);
+            height: 1.2em;
+            line-height: 1.2em;
+            margin-bottom: 2px;
+        }
+
+        .price-tag {
+            font-weight: bold;
+            color: var(--price-color);
+            font-size: 15px;
+            margin-top: 5px;
         }
 
         .sayfa {
-            justify-content: center;
-            text-align: center;
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             max-width: 794px;
-            /* A4 sayfasına uygun genişlik */
             margin: 0 auto;
-            /* Sayfa ortalanacak */
             page-break-after: always;
-            /* Her sayfanın sonundan sonra yeni sayfa oluştur */
-        }
-
-        .sayfa:after {
-            content: "";
-            display: table;
-            clear: both;
         }
     </style>
 </head>
 
 <body>
     <div class="pageHeader">
-        <img src="https://oriongida.com/wp-content/uploads/2023/12/orion-katalog2-scaled.jpg" width="100%"
-            height="auto">
+        <img src="{{ui.headerImageUrl}}" style="width: 100%; height: auto;">
     </div>
 
-    {{#each items}}
-    <div class="ana-kutu">
-        <div class="gorsel">
-            {{#if this.thumbnail}}
-            <img src="{{this.thumbnail}}" alt="" />
-            {{else}}
-            <img src="https://via.placeholder.com/150" alt="" />
-            {{/if}}
+    <div class="sayfa">
+        {{#each items}}
+        <div class="ana-kutu">
+            <div class="gorsel">
+                {{#if this.thumbnail}}
+                <img src="{{this.thumbnail}}" alt="" />
+                {{else}}
+                <img src="https://via.placeholder.com/150" alt="" />
+                {{/if}}
+            </div>
+            <div class="metin">{{#if this.title}}{{this.title}}{{else}}<span style="color: red;">---</span>{{/if}}</div>
+            <div class="alt-metin">{{#if this.brand}}{{this.brand}}{{else}}<span style="color: red;">---</span>{{/if}}
+            </div>
+            <div class="price-tag">{{this.price}} $</div>
         </div>
-        {{#if this.title}}
-        <div class="metin">{{this.title}}</div>
-        {{else}}
-        <div class="metin"><span style="color: red;">---</span></div>
-        {{/if}}
-        {{#if this.brand}}
-        <div class="alt-metin">{{this.brand}}</div>
-        {{else}}
-        <div class="alt-metin"><span style="color: red;">---</span></div>
-        {{/if}}
-        <div class="alt-metin" style="font-weight: bold; color: #2c3e50;">{{this.price}} $</div>
+        {{/each}}
     </div>
-    {{/each}}
 </body>
 
 </html>
